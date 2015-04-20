@@ -9,34 +9,28 @@ Runs about twice as fast as the equivalent model implemented in Neuron.
 ## Design Decisions
 
 Artificial Neural Networks and very simple spiking neural network models are ammendable to SIMD vectorization (i.e. parallel updating
-of many neurons by taking advantage of BLAS matrix multiplication routines), but adding additional complexitiies to the neuron or synaptic
-transmission model results in diminishing returns.
+of many neurons by taking advantage of BLAS matrix multiplication). However, code becomes a lot harder to write when trying to account for more complex models like synaptic transmission and per-unit conditional branching behavior.
 
-This code is implemented to be as readable and extendible as possible.
+Instead of using object-oriented programming, this code (mostly) uses a C/Julia-like programming approach, by treating object instances like bags of data, with external functions operating on those bags, rather than reats classes like "bags of data" instead of objects that "own" functions.
 
-Instead of using object-oriented programming, this code takes a more functional approach and treats classes like bags of data, with
-exterior functions that operate on those bags.
+
+## Dependencies
+
+* [Google Protobufs](https://developers.google.com/protocol-buffers/docs/downloads.html)
+* Qt
+* ncurses
+* Clang, Clang++
+
 
 ## Building
-
-Dependencies: [Google Protobufs](https://developers.google.com/protocol-buffers/docs/downloads.html), Qt (only qmake, no Qt libraries).
 
 In your terminal:
 
 ```bash
-git clone https://ericjang/neuralnets
-build # runs protoc, qmake, make
+git clone https://ericjang/NeuralNets
+./compile.sh
 ./neuralnets
 ```
-
-## Julia Implementation
-
-This was initially implemented in Julia, see [https://ericjang/NeuralNets.jl](https://ericjang/NeuralNets.jl).
-However, Julia lacks shared a shared memory threading model (crucial for speedup) so I had to drop down to C++ for adequate performance.
-
-
-when installing google protobuf, will also need to install the bundled python scripts. see their README.md for instructions
-
 
 ## Profiling
 
