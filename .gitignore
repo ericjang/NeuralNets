@@ -1,0 +1,9 @@
+Makefile
+dev_log.txt
+gmon.out
+nets
+images/*
+data/*
+*.pro.user*
+*.pb.*
+*.o

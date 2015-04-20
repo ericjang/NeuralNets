@@ -1,0 +1,74 @@
+// NOTE : the generated classes are not sufficient to serve as a substitute for 
+// the simulation clases! Those classes need some extra data.
+// network should be 
+
+syntax = "proto2";
+
+package neuralnets;
+
+// for capturing things like membrane potential of single neurons
+message Trace {
+	repeated float val = 1;
+}
+
+message Spike {
+	optional int32 t = 1; // discrete timestep
+	optional int32 i = 2; // ith neuron
+}
+
+message SpikingLayer {
+	enum LayerType {
+        Simple = 0;
+        HodgkinHuxley = 1;
+    }
+    optional LayerType layer_type = 1;
+	optional int32 N = 2; // number of units
+	optional string name = 3; // name of the layer
+}
+
+message Synapse {
+	enum SynapseType {
+        EXC = 1;
+        INH = 2;
+    }
+    optional SynapseType stype = 1;
+    optional int32 s = 2; // source
+    optional int32 t = 3; // target
+    optional float w = 4; // weight
+    optional float d = 5; // delay
+}
+
+message SpikingConnection {
+	optional int32 source = 1;
+	optional int32 target = 2;
+	repeated Synapse synapses = 3;
+	optional bool stdp_enabled = 4;
+	optional float avg_w = 5;
+}
+
+message NetworkState {
+	repeated SpikingLayer layers = 1;
+	repeated SpikingConnection connections = 2;	
+}
+
+message Raster {
+	repeated Spike spikes = 1; // spike raster
+}
+
+// simple message for containing an image
+message RGBImage {
+	repeated int32 R = 1;
+	repeated int32 G = 2;
+	repeated int32 B = 3;
+}
+
+message SimulationResults {
+	optional float dt = 1;
+	optional float T = 2;
+	optional NetworkState nstate = 3;
+	optional RGBImage img = 4; // image used for this trial
+	repeated Raster spikes = 5; // one for each layer
+	optional int32 iter = 6;
+}
+
+// in the case of a simple network, there is just 1 layer and 1 (recurrent) SpikingConnection

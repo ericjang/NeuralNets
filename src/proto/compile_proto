@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# compiles protobufs and puts them in Networkviz/include/nviz/
+#/contrib/projects/protobuf/bin/protoc --cpp_out=. --python_out=/home/evjang/networkviz/examples/ nviz.proto
+
+export PATH=$PATH:~/.julia/v0.3/ProtoBuf/plugin/
+protoc \
+  --cpp_out=. \
+  --julia_out=../../analysis/julia/. \
+  --python_out=../../analysis/python/. \
+  neural_nets.proto
+
+echo 'done!'
+
