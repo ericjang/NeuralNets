@@ -132,6 +132,11 @@ tuple<ivec, ivec, vector<T>> topographicWeights2D(int sN, int tN, vector<T> kern
 // <N -> N
 synapse_vec p_2_lgn(int sN, int tN, syn_t stype, float base_weight) {
 
+    // hacky override
+    if (sN == tN) {
+        return forward(sN,tN,stype,base_weight);
+    }
+
     int small_N = min(sN,tN);
     int big_N = max(sN,tN);
     float kernel_width = sqrt((float)big_N/(float)small_N);
@@ -144,11 +149,12 @@ synapse_vec p_2_lgn(int sN, int tN, syn_t stype, float base_weight) {
     std::tie(S, T, W) = topographicWeights2D(sN,tN,kernel); // weights are aggregated
     synapse_vec vec;
     for (int i=0; i<S.size(); ++i) {
-        float delay = 1.0;
+        float delay = 1.0 + (uniform01()-0.5);
         float w = 0;
         for (int i=0; i<W[i]; ++i) {
-            w += base_weight * (0.5 + 1.5*uniform01());
+            w += base_weight;
         }
+        w *= uniform01();
         vec.push_back(new SpikingSynapse(stype, S[i], T[i], w, delay));
     }
     return vec;
@@ -168,8 +174,8 @@ synapse_vec forward(int sN, int tN, syn_t stype, float base_weight) {
     std::tie(S, T, Tmp) = topographicWeights2D(sN, kernel);
     synapse_vec vec;
     for (int i=0; i<S.size(); ++i) {
-        float delay = 1.0;
-        float w = base_weight * (0.5 + 1.5*uniform01());
+        float delay = 1.0 + (uniform01()-0.5);
+        float w = base_weight * (0.5+2.0*uniform01());
         vec.push_back(new SpikingSynapse(stype, S[i], T[i], w, delay));
     }
     return vec;
@@ -212,7 +218,7 @@ synapse_vec lateral(int N, float w_pot, float w_dep) {
     for (int i=0; i<S.size(); ++i) {
         syn_t stype = (Types[i] == 1) ? EXC : INH;
         float base_weight = (stype == EXC) ? w_pot : w_dep;
-        float w = base_weight * (0.5 + 1.5*uniform01());
+        float w = base_weight *  (0.5+2.0*uniform01());
         vec.push_back(new SpikingSynapse(stype, S[i], T[i], w, delays[i]));
     }
     return vec;

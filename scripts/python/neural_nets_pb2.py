@@ -18,7 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='neural_nets.proto',
   package='neuralnets',
-  serialized_pb=_b('\n\x11neural_nets.proto\x12\nneuralnets\"\x14\n\x05Trace\x12\x0b\n\x03val\x18\x01 \x03(\x02\"\x1d\n\x05Spike\x12\t\n\x01t\x18\x01 \x01(\x05\x12\t\n\x01i\x18\x02 \x01(\x05\"\x8b\x01\n\x0cSpikingLayer\x12\x36\n\nlayer_type\x18\x01 \x01(\x0e\x32\".neuralnets.SpikingLayer.LayerType\x12\t\n\x01N\x18\x02 \x01(\x05\x12\x0c\n\x04name\x18\x03 \x01(\t\"*\n\tLayerType\x12\n\n\x06Simple\x10\x00\x12\x11\n\rHodgkinHuxley\x10\x01\"\x86\x01\n\x07Synapse\x12.\n\x05stype\x18\x01 \x01(\x0e\x32\x1f.neuralnets.Synapse.SynapseType\x12\t\n\x01s\x18\x02 \x01(\x05\x12\t\n\x01t\x18\x03 \x01(\x05\x12\t\n\x01w\x18\x04 \x01(\x02\x12\t\n\x01\x64\x18\x05 \x01(\x02\"\x1f\n\x0bSynapseType\x12\x07\n\x03\x45XC\x10\x01\x12\x07\n\x03INH\x10\x02\"\x7f\n\x11SpikingConnection\x12\x0e\n\x06source\x18\x01 \x01(\x05\x12\x0e\n\x06target\x18\x02 \x01(\x05\x12%\n\x08synapses\x18\x03 \x03(\x0b\x32\x13.neuralnets.Synapse\x12\x14\n\x0cstdp_enabled\x18\x04 \x01(\x08\x12\r\n\x05\x61vg_w\x18\x05 \x01(\x02\"l\n\x0cNetworkState\x12(\n\x06layers\x18\x01 \x03(\x0b\x32\x18.neuralnets.SpikingLayer\x12\x32\n\x0b\x63onnections\x18\x02 \x03(\x0b\x32\x1d.neuralnets.SpikingConnection\"+\n\x06Raster\x12!\n\x06spikes\x18\x01 \x03(\x0b\x32\x11.neuralnets.Spike\"+\n\x08RGBImage\x12\t\n\x01R\x18\x01 \x03(\x05\x12\t\n\x01G\x18\x02 \x03(\x05\x12\t\n\x01\x42\x18\x03 \x03(\x05\"\xa9\x01\n\x11SimulationResults\x12\n\n\x02\x64t\x18\x01 \x01(\x02\x12\t\n\x01T\x18\x02 \x01(\x02\x12(\n\x06nstate\x18\x03 \x01(\x0b\x32\x18.neuralnets.NetworkState\x12!\n\x03img\x18\x04 \x01(\x0b\x32\x14.neuralnets.RGBImage\x12\"\n\x06spikes\x18\x05 \x03(\x0b\x32\x12.neuralnets.Raster\x12\x0c\n\x04iter\x18\x06 \x01(\x05')
+  serialized_pb=_b('\n\x11neural_nets.proto\x12\nneuralnets\"\x14\n\x05Trace\x12\x0b\n\x03val\x18\x01 \x03(\x02\"\x1d\n\x05Spike\x12\t\n\x01t\x18\x01 \x01(\x05\x12\t\n\x01i\x18\x02 \x01(\x05\"\x9e\x01\n\x0cSpikingLayer\x12\x36\n\nlayer_type\x18\x01 \x01(\x0e\x32\".neuralnets.SpikingLayer.LayerType\x12\t\n\x01N\x18\x02 \x01(\x05\x12\x0c\n\x04name\x18\x03 \x01(\t\"=\n\tLayerType\x12\n\n\x06Simple\x10\x00\x12\x11\n\rHodgkinHuxley\x10\x01\x12\x11\n\rIntegrateFire\x10\x02\"\x86\x01\n\x07Synapse\x12.\n\x05stype\x18\x01 \x01(\x0e\x32\x1f.neuralnets.Synapse.SynapseType\x12\t\n\x01s\x18\x02 \x01(\x05\x12\t\n\x01t\x18\x03 \x01(\x05\x12\t\n\x01w\x18\x04 \x01(\x02\x12\t\n\x01\x64\x18\x05 \x01(\x02\"\x1f\n\x0bSynapseType\x12\x07\n\x03\x45XC\x10\x01\x12\x07\n\x03INH\x10\x02\"\x7f\n\x11SpikingConnection\x12\x0e\n\x06source\x18\x01 \x01(\x05\x12\x0e\n\x06target\x18\x02 \x01(\x05\x12%\n\x08synapses\x18\x03 \x03(\x0b\x32\x13.neuralnets.Synapse\x12\x14\n\x0cstdp_enabled\x18\x04 \x01(\x08\x12\r\n\x05\x61vg_w\x18\x05 \x01(\x02\"l\n\x0cNetworkState\x12(\n\x06layers\x18\x01 \x03(\x0b\x32\x18.neuralnets.SpikingLayer\x12\x32\n\x0b\x63onnections\x18\x02 \x03(\x0b\x32\x1d.neuralnets.SpikingConnection\"+\n\x06Raster\x12!\n\x06spikes\x18\x01 \x03(\x0b\x32\x11.neuralnets.Spike\"+\n\x08RGBImage\x12\t\n\x01R\x18\x01 \x03(\x05\x12\t\n\x01G\x18\x02 \x03(\x05\x12\t\n\x01\x42\x18\x03 \x03(\x05\"\xa9\x01\n\x11SimulationResults\x12\n\n\x02\x64t\x18\x01 \x01(\x02\x12\t\n\x01T\x18\x02 \x01(\x02\x12(\n\x06nstate\x18\x03 \x01(\x0b\x32\x18.neuralnets.NetworkState\x12!\n\x03img\x18\x04 \x01(\x0b\x32\x14.neuralnets.RGBImage\x12\"\n\x06spikes\x18\x05 \x03(\x0b\x32\x12.neuralnets.Raster\x12\x0c\n\x04iter\x18\x06 \x01(\x05')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -38,11 +38,15 @@ _SPIKINGLAYER_LAYERTYPE = _descriptor.EnumDescriptor(
       name='HodgkinHuxley', index=1, number=1,
       options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='IntegrateFire', index=2, number=2,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=184,
-  serialized_end=226,
+  serialized_end=245,
 )
 _sym_db.RegisterEnumDescriptor(_SPIKINGLAYER_LAYERTYPE)
 
@@ -63,8 +67,8 @@ _SYNAPSE_SYNAPSETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=332,
-  serialized_end=363,
+  serialized_start=351,
+  serialized_end=382,
 )
 _sym_db.RegisterEnumDescriptor(_SYNAPSE_SYNAPSETYPE)
 
@@ -177,7 +181,7 @@ _SPIKINGLAYER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=87,
-  serialized_end=226,
+  serialized_end=245,
 )
 
 
@@ -235,8 +239,8 @@ _SYNAPSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=229,
-  serialized_end=363,
+  serialized_start=248,
+  serialized_end=382,
 )
 
 
@@ -293,8 +297,8 @@ _SPIKINGCONNECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=365,
-  serialized_end=492,
+  serialized_start=384,
+  serialized_end=511,
 )
 
 
@@ -330,8 +334,8 @@ _NETWORKSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=494,
-  serialized_end=602,
+  serialized_start=513,
+  serialized_end=621,
 )
 
 
@@ -360,8 +364,8 @@ _RASTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=604,
-  serialized_end=647,
+  serialized_start=623,
+  serialized_end=666,
 )
 
 
@@ -404,8 +408,8 @@ _RGBIMAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=649,
-  serialized_end=692,
+  serialized_start=668,
+  serialized_end=711,
 )
 
 
@@ -469,8 +473,8 @@ _SIMULATIONRESULTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=695,
-  serialized_end=864,
+  serialized_start=714,
+  serialized_end=883,
 )
 
 _SPIKINGLAYER.fields_by_name['layer_type'].enum_type = _SPIKINGLAYER_LAYERTYPE

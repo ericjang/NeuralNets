@@ -9,6 +9,7 @@ struct SpikingNet;
 struct RunSettings;
 
 QImage getRandomPatch(QImage img, int w);
+QImage getSaccadePatch(QImage img, int w, int stepsize, int &x, int &y);
 
 stim_vec getStimsFromImage(QImage img, SpikingNet *net, float tstart, float tstop);
 stim_vec getConstantStim(float hz, SpikingNet *net, float tstart, float tstop);

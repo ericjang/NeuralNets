@@ -6,6 +6,7 @@
 #include "common.h"
 #include "synapses/spikingconnection.h"
 #include "layer.h"
+#include "proto/neural_nets.pb.h"
 
 using std::vector;
 using std::string;
@@ -19,7 +20,7 @@ struct SpikingLayer : Layer
     // constructors cannot be templated functions
     SpikingLayer(std::string name, int N) : Layer(name,N) {}
 
-
+    neuralnets::SpikingLayer_LayerType type;
 };
 
 void reset(SpikingLayer *layer);

@@ -6,7 +6,11 @@
 #include "synapses/spikingconnection.h"
 #include "layers/spikinglayer.h"
 #include "common.h"
+#include "neurons/hodgkin_huxley.h"
+#include "neurons/if_neuron.h"
+#include "neurons/if_neuron.h"
 #include "proto/neural_nets.pb.h"
+#include <QString>
 
 using std::vector;
 using std::string;
@@ -45,6 +49,14 @@ SpikingLayer *create_layer(SpikingNet* net, string name, int N) {
         layer->units[i] = unit;
     }
 
+    if (typeid(T) == typeid(HodgkinHuxley)) {
+        layer->type = neuralnets::SpikingLayer_LayerType_HodgkinHuxley;
+    } else if (typeid(T) == typeid(IFNeuron)){
+        layer->type = neuralnets::SpikingLayer_LayerType_IntegrateFire;
+    } else {
+        layer->type = neuralnets::SpikingLayer_LayerType_Simple;
+    }
+
     add_layer(net, layer);
     return layer;
 }
@@ -64,7 +76,7 @@ void updateSTDP(SpikingConnection *conn, SpikingLayer *source, SpikingLayer *tar
 void recordSpikes(neuralnets::Raster* raster, SpikingLayer *layer, int t);
 
 // simulation
-neuralnets::SimulationResults run(SpikingNet* net, RunSettings *rs);
+neuralnets::SimulationResults run(SpikingNet* net, RunSettings *rs, bool save_weights);
 
 
 void reset(SpikingNet *net);
@@ -75,7 +87,7 @@ void normalizeWeights(SpikingNet* net);
 
 // IO
 
-void saveResults(neuralnets::SimulationResults results, std::string fname);
-void recordState(neuralnets::NetworkState *state, SpikingNet *net);
+void saveResults(neuralnets::SimulationResults results, QString fname);
+void recordState(neuralnets::NetworkState *state, SpikingNet *net, bool save_weights);
 
 #endif // SPIKINGNET_H

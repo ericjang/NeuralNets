@@ -55,9 +55,10 @@ def plot_weight_hists(results,stdp_only):
 				w_i.append(syn.w)
 		plt.sca(axes[i])
 		if len(w_e) > 0:
-			plt.hist(w_e, bins=100, histtype='step')
+			plt.hist(w_e, bins=100)
 		if len(w_i) > 0:
-			plt.hist(w_i, bins=100, histtype='step')
+			plt.hist(w_i, bins=100)
+			#plt.hist(w_i, bins=100, histtype='step')
 		#plt.hist(w_e, bins=20, normed=True, histtype='step')
 		#plt.hist(w_i, bins=20, normed=True, histtype='step')
 		#plt.xlim((0,1.0))
@@ -66,16 +67,19 @@ def plot_weight_hists(results,stdp_only):
 		plt.title(sname + "->" + tname)
 		i+=1
 	#plt.tight_layout()
-	plt.show()
+	fig.suptitle("training iterations: " + str(results.iter), fontsize=10)
+	return fig
 
+def gen_weight_plot(dat_name):
+	data = open(dat_name,"rb").read() # file as string
+	results = SimulationResults()
+	results.ParseFromString(data)
+	return plot_weight_hists(results,True)
 
 if __name__ == "__main__":
-	if len(sys.argv) < 2:
-		print("Usage: ./viz_rasters.py <FILES...>")
+	if len(sys.argv) != 2:
+		print("Usage: ./viz_rasters.py [FILE]")
 		sys.exit()
-	fnames = sys.argv[1:]
-	for dat_name in fnames:
-		data = open(dat_name,"rb").read() # file as string
-		results = SimulationResults()
-		results.ParseFromString(data)
-		plot_weight_hists(results,True)
+	dat_name = sys.argv[1]
+	fig = gen_weight_plot(dat_name)
+	plt.show()

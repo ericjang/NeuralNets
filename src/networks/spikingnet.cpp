@@ -12,10 +12,6 @@
 #include <iostream>
 #include <fstream>
 
-// tmp
-#include "neurons/hodgkin_huxley.h"
-
-
 extern "C" {
 #include "progressbar.h"
 }
@@ -93,7 +89,7 @@ void normalizeWeights(SpikingNet* net) {
 // that is up to the user. There are use cases where one might wish
 // to have continuous simulation with short RunSetting and "pauses"
 
-neuralnets::SimulationResults run(SpikingNet *net, RunSettings *rs) {
+neuralnets::SimulationResults run(SpikingNet *net, RunSettings *rs, bool save_weights) {
     int nsteps = ceil(rs->T/rs->dt);
     neuralnets::SimulationResults results;
     // set up rasters
@@ -155,33 +151,36 @@ neuralnets::SimulationResults run(SpikingNet *net, RunSettings *rs) {
     if (rs->progressbar) progressbar_finish(progress);
 
     neuralnets::NetworkState * state = results.mutable_nstate();
-    recordState(state, net);
+    recordState(state, net, save_weights);
 
     return results;
 }
 
-void recordState(neuralnets::NetworkState *state, SpikingNet *net) {
+void recordState(neuralnets::NetworkState *state, SpikingNet *net, bool save_weights) {
     for (SpikingLayer *layer : net->layers) {
         neuralnets::SpikingLayer *proto_layer = state->add_layers();
         proto_layer->set_n(layer->n);
         proto_layer->set_name(layer->name);
+        proto_layer->set_layer_type(layer->type);
     }
-    for (conn_vec conn_arr : net->pre) {
-        for (SpikingConnection *conn : conn_arr) {
-            neuralnets::SpikingConnection * proto_conn = state->add_connections();
-            proto_conn->set_source(conn->s);
-            proto_conn->set_target(conn->t);
-            proto_conn->set_stdp_enabled(conn->stdp_enabled);
-            proto_conn->set_avg_w(conn->target_w_avg);
-            for (SpikingSynapse *syn : conn->synapses) {
-                neuralnets::Synapse *proto_syn = proto_conn->add_synapses();
-                neuralnets::Synapse_SynapseType stype =
-                        (syn->stype == EXC) ? neuralnets::Synapse_SynapseType_EXC : neuralnets::Synapse_SynapseType_INH;
-                proto_syn->set_stype(stype);
-                proto_syn->set_s(syn->s);
-                proto_syn->set_t(syn->t);
-                proto_syn->set_w(syn->w);
-                proto_syn->set_d(syn->d);
+    if (save_weights) {
+        for (conn_vec conn_arr : net->pre) {
+            for (SpikingConnection *conn : conn_arr) {
+                neuralnets::SpikingConnection * proto_conn = state->add_connections();
+                proto_conn->set_source(conn->s);
+                proto_conn->set_target(conn->t);
+                proto_conn->set_stdp_enabled(conn->stdp_enabled);
+                proto_conn->set_avg_w(conn->target_w_avg);
+                for (SpikingSynapse *syn : conn->synapses) {
+                    neuralnets::Synapse *proto_syn = proto_conn->add_synapses();
+                    neuralnets::Synapse_SynapseType stype =
+                            (syn->stype == EXC) ? neuralnets::Synapse_SynapseType_EXC : neuralnets::Synapse_SynapseType_INH;
+                    proto_syn->set_stype(stype);
+                    proto_syn->set_s(syn->s);
+                    proto_syn->set_t(syn->t);
+                    proto_syn->set_w(syn->w);
+                    proto_syn->set_d(syn->d);
+                }
             }
         }
     }
@@ -219,12 +218,12 @@ void updateLayer(SpikingLayer *layer, conn_vec pre_arr, boolvec doSpike, float t
 
 
 
-void saveResults(neuralnets::SimulationResults results, std::string fname) {
-    fstream output(fname, ios::out | ios::trunc | ios::binary);
-    cout << "saving " << fname << endl;
+void saveResults(neuralnets::SimulationResults results, QString fname) {
+    fstream output(fname.toStdString(), ios::out | ios::trunc | ios::binary);
     if (!results.SerializeToOstream(&output)) {
-        cerr << "Failed to write address book." << endl;
+        cerr << "Failed to write " << fname.toStdString() << endl;
+    } else {
+        cout << "Saved to " << fname.toStdString() << endl;
     }
-
 }
 

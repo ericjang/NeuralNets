@@ -6,8 +6,8 @@
 export PATH=$PATH:~/.julia/v0.3/ProtoBuf/plugin/
 protoc \
   --cpp_out=. \
-  --julia_out=../../analysis/julia/. \
-  --python_out=../../analysis/python/. \
+  --julia_out=../../scripts/julia/. \
+  --python_out=../../scripts/python/. \
   neural_nets.proto
 
 echo 'done!'

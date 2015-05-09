@@ -35,7 +35,7 @@ void SingleNeuronTests::test()
     stims[1] = new EmptyStim(1);
 
     RunSettings* rs = new RunSettings(T,dt,stims,true); // true = show progress
-    neuralnets::SimulationResults results = run(net, rs);
+    neuralnets::SimulationResults results = run(net, rs, true);
 
     delete rs;
     delete net;

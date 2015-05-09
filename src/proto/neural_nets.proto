@@ -20,6 +20,7 @@ message SpikingLayer {
 	enum LayerType {
         Simple = 0;
         HodgkinHuxley = 1;
+        IntegrateFire = 2;
     }
     optional LayerType layer_type = 1;
 	optional int32 N = 2; // number of units

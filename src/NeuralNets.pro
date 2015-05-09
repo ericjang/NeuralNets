@@ -52,7 +52,9 @@ HEADERS += \
     unittests/singleneurontests.h \
     unittests/train_tests.h \
     neural_nets.h \
-    apma2821v/stimuli.h
+    apma2821v/stimuli.h \
+    utilities/filesystem_utils.h \
+    neurons/if_neuron.h
 
 SOURCES += \
     apma2821v/buildnet.cpp \
@@ -79,7 +81,9 @@ SOURCES += \
     unittests/conn_tests.cpp \
     unittests/singleneurontests.cpp \
     unittests/train_tests.cpp \
-    apma2821v/stimuli.cpp
+    apma2821v/stimuli.cpp \
+    utilities/filesystem_utils.cpp \
+    neurons/if_neuron.cpp
 
 # C sources
 SOURCES += third_party/progressbar/lib/progressbar.c \

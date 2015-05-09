@@ -1,0 +1,19 @@
+# dot -Tpng net_full.dot -o net_diagram.png
+digraph ColorNet {
+P_L -> LGN_L
+P_L -> LGN_C1
+P_L -> LGN_C2
+P_M -> LGN_L
+P_M -> LGN_C1 [style=dotted]
+P_M -> LGN_C2
+P_S -> LGN_C2 [style=dotted]
+LGN_L -> V1_4
+LGN_C1 -> V1_4
+LGN_C2 -> V1_23
+V1_4 -> V1_23
+V1_23 -> V1_5
+V1_4 -> V1_4
+V1_23 -> V1_23
+V1_5 -> V1_5
+}
+

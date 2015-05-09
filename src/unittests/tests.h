@@ -5,5 +5,6 @@
 #include "progressmetertests.h"
 #include "conn_tests.h"
 #include "singleneurontests.h"
+#include "train_tests.h"
 
 #endif // TESTS_H

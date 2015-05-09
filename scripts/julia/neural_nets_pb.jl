@@ -23,7 +23,8 @@ isequal(v1::Spike, v2::Spike) = ProtoBuf.protoisequal(v1, v2)
 type __enum_SpikingLayer_LayerType <: ProtoEnum
     Simple::Int32
     HodgkinHuxley::Int32
-    __enum_SpikingLayer_LayerType() = new(0,1)
+    IntegrateFire::Int32
+    __enum_SpikingLayer_LayerType() = new(0,1,2)
 end #type __enum_SpikingLayer_LayerType
 const SpikingLayer_LayerType = __enum_SpikingLayer_LayerType()
 
